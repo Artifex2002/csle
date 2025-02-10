@@ -43,21 +43,28 @@
   "nginx_log_dir": "/var/log/nginx/",
   "default_log_dir": "/tmp/csle/",
   "metastore_ip": "127.0.0.1",
-  "localhost": true,
+  "localhost": false,
   "metastore_user": "csle",
   "metastore_password": "csle",
   "metastore_database_name": "csle",
   "cluster_config": {
     "cluster_nodes": [
       {
-        "ip": "127.0.0.1",
+        "ip": "172.31.212.92",
         "leader": true,
-        "cpus": 24,
-        "gpus": 0,
-        "RAM": 192
+        "cpus": 96,
+        "gpus": 4,
+        "RAM": 755
+      },
+      {
+        "ip": "172.31.212.91",
+        "leader": false,
+        "cpus": 16,
+        "gpus": 2,
+        "RAM": 126
       }
     ]
   },
   "allow_registration": true,
-  "version": "0.7.0"
+  "version": "0.8.0"
 }
