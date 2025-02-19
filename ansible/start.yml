@@ -20,8 +20,8 @@
   tasks:
 
     - name: Execute start script on the leader node
-      command: "python /home/{{ user }}/csle/ansible/start_services.py {{ leader_ip }} {{ user }} {{ conda_environment_name }}"
+      command: "python ./start_services.py {{ leader_ip }} {{ user }} {{ conda_environment_name }}"
 
     - name: Execute start scripts on the worker nodes
-      command: "python /home/{{ user }}/csle/ansible/start_services.py {{ item }} {{ user }} {{ conda_environment_name }}"
+      command: "python ./start_services.py {{ item }} {{ user }} {{ conda_environment_name }}"
       loop: "{{ groups['worker'] }}"

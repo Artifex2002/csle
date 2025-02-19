@@ -47,7 +47,7 @@ class AptGameMdpAttackerEnv(BaseEnv):
         self.reset()
         super().__init__()
 
-    def step(self, pi2: Union[npt.NDArray[Any], int, float, np.int_, np.float64]) \
+    def step(self, pi2: Union[npt.NDArray[Any], int, float, int, np.float64]) \
             -> Tuple[npt.NDArray[Any], int, bool, bool, Dict[str, Any]]:
         """
         Takes a step in the environment by executing the given action
@@ -55,7 +55,8 @@ class AptGameMdpAttackerEnv(BaseEnv):
         :param pi2: attacker stage policy
         :return: (obs, reward, terminated, truncated, info)
         """
-        if type(pi2) is int or type(pi2) is float or type(pi2) is np.int64 or type(pi2) is np.float64:
+        if (type(pi2) is int or type(pi2) is float or type(pi2) is np.int64 or type(pi2) is np.int32 # type: ignore
+                or type(pi2) is np.float64): # type: ignore
             a2 = pi2
             if self.latest_attacker_obs is None:
                 raise ValueError("Attacker observation is None")
