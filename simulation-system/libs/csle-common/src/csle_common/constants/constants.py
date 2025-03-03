@@ -58,6 +58,11 @@ class CONTAINER_IMAGES:
     SAMBA_2 = "csle_samba_2"
     HONEYPOT_1 = "csle_honeypot_1"
     FTP_1 = "csle_ftp_1"
+    # OPLC_RUNTIME_BASE_OS + Distinct Communication Protocols
+    MODBUS_1 = "csle_modbus_1"
+    OPCUA_1 = "csle_opcua_1"
+    MODBUS_OPCUA_1 = "csle_modbus_opcua_1"
+    S7_COMM_1 = "csle_s7_comm_1"
     HACKER_KALI_1 = "csle_hacker_kali_1"
     SHELLSHOCK_1 = "csle_shellshock_1"
     SQL_INJECTION_1 = "csle_sql_injection_1"
@@ -108,6 +113,11 @@ class CONTAINER_OS:
     OVS_1_OS = "ubuntu"
     RYU_1_OS = "ubuntu"
     HACKER_KALI_1_OS = "kali"
+    # OPLC_RUNTIME_BASE_OS + Distinct Communication Protocols - Debian10
+    MODBUS_1_OS = "debian"
+    OPCUA_1_OS = "debian"
+    MODBUS_OPCUA_1_OS = "debian"
+    S7_COMM_1_OS = "debian"
     SHELLSHOCK_1_OS = "debian"
     SQL_INJECTION_1_OS = "debian"
     CVE_2010_0426_1_OS = "debian"
@@ -526,6 +536,57 @@ class NMAP_XML:
     VERSION = "version"
     SERVICEFP = "servicefp"
 
+class OPENPLC:
+    """
+    Constants related to the OPENPLC service
+    """
+    # INCORRECT_LOGIN = "Login incorrect"
+    SERVICE_NAME = "openplc"
+    DEFAULT_PORT = 8080
+    # LOCALHOST = "127.0.0.1"
+    # LFTP_PROMPT = ":~>"
+    # LFTP_PROMPT_2 = ":/>"
+    # LFTP_PREFIX = "lftp ftp://"
+    # ACCESS_FAILED = "Access failed"
+
+class OPCUA:
+    """
+    Constants related to the OPCUA service
+    """
+    # INCORRECT_LOGIN = "Login incorrect"
+    SERVICE_NAME = "opcua"
+    DEFAULT_PORT = 4840
+    # LOCALHOST = "127.0.0.1"
+    # LFTP_PROMPT = ":~>"
+    # LFTP_PROMPT_2 = ":/>"
+    # LFTP_PREFIX = "lftp ftp://"
+    # ACCESS_FAILED = "Access failed"
+
+class MODBUS:
+    """
+    Constants related to the MODBUS service
+    """
+    # INCORRECT_LOGIN = "Login incorrect"
+    SERVICE_NAME = "modbus"
+    DEFAULT_PORT = 502
+    # LOCALHOST = "127.0.0.1"
+    # LFTP_PROMPT = ":~>"
+    # LFTP_PROMPT_2 = ":/>"
+    # LFTP_PREFIX = "lftp ftp://"
+    # ACCESS_FAILED = "Access failed"
+
+class S7_COMM:
+    """
+    Constants related to the SIEMENS S7 COMMUNICATION service
+    """
+    # INCORRECT_LOGIN = "Login incorrect"
+    SERVICE_NAME = "s7_comm"
+    DEFAULT_PORT = 102
+    # LOCALHOST = "127.0.0.1"
+    # LFTP_PROMPT = ":~>"
+    # LFTP_PROMPT_2 = ":/>"
+    # LFTP_PREFIX = "lftp ftp://"
+    # ACCESS_FAILED = "Access failed"
 
 class SSH:
     """
@@ -548,7 +609,6 @@ class TELNET:
     INCORRECT_LOGIN = "Login incorrect"
     SERVICE_NAME = "telnet"
     DEFAULT_PORT = 23
-
 
 class FTP:
     """
