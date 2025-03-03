@@ -124,7 +124,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
     :param network_id: the network id
     :return: the ContainersConfig of the emulation
     """
-    # Mods required - Suffix _1,_2,_3,_4...
+    # Mods required - Suffix _1,_2,_3,_4...???
     containers = [
         # Container 1 - Attacker
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.HACKER_KALI_1}",
@@ -422,8 +422,8 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_4"),
         # Container 8 - Workstation 1
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.PLC_1}",
-                            os=constants.CONTAINER_OS.PLC_1_OS,
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.MODBUS_1}",
+                            os=constants.CONTAINER_OS.MODBUS_1_OS,
                             ips_and_networks=[
                                 # Subnet #6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25",
@@ -454,8 +454,8 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
         # Container 9 - Workstation 2
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.PLC_2}",
-                            os=constants.CONTAINER_OS.PLC_2_OS,
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OPCUA_1}",
+                            os=constants.CONTAINER_OS.OPCUA_1_OS,
                             ips_and_networks=[
                                 # Subnet #6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92",
@@ -486,8 +486,8 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
         # Container 10 - Workstation 3
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.PLC_3}",
-                            os=constants.CONTAINER_OS.PLC_3_OS,
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.MODBUS_OPCUA_1}",
+                            os=constants.CONTAINER_OS.MODBUS_OPCUA_1_OS,
                             ips_and_networks=[
                                 # Subnet #6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.108",
@@ -517,9 +517,9 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
-        # Container 11 - Workstation 4 // MPRC
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.PLC_4}",
-                            os=constants.CONTAINER_OS.PLC_4_OS,
+        # Container 11 - MPRC (Multi-Process Robotic Cell)
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.S7_COMM_1}",
+                            os=constants.CONTAINER_OS.S7_COMM_1_OS,
                             ips_and_networks=[
                                 # Subnet #6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.15",
@@ -549,11 +549,12 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
-        # Mods in progress
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.TELNET_1}",
-                            os=constants.CONTAINER_OS.TELNET_1_OS,
+        # Container 12 - Server 1
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.CVE_2015_1427_1}",
+                            os=constants.CONTAINER_OS.CVE_2015_1427_1_OS,
                             ips_and_networks=[
-                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.8",
+                                # Subnet #4
+                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
                                      subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -562,8 +563,9 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
+                                # Kafka - Mgmt net
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
-                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.8",
+                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.99",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
                                           f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}",
@@ -579,20 +581,23 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.SSH_1}",
-                            os=constants.CONTAINER_OS.SSH_1_OS,
+        # Container 13 - Server 2
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.SQL_INJECTION_1}",
+                            os=constants.CONTAINER_OS.SQL_INJECTION_1_OS,
                             ips_and_networks=[
-                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.41",
+                                # Subnet #4
+                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65",
                                  ContainerNetwork(
-                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
+                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
                                      subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
-                                                 f"{network_id}.6{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                                                 f"{network_id}.4{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
                                      subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
+                                # Kafka - Mgmt net
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
-                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.41",
+                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.65",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
                                           f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}",
@@ -607,22 +612,56 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             ],
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
-                            suffix="_2"),
-        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.FTP_1}",
-                            os=constants.CONTAINER_OS.FTP_1_OS,
+                            suffix="_1"),        
+        # Container 14 - Server 3
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.SAMBA_2}",
+                            os=constants.CONTAINER_OS.SAMBA_2_OS,
                             ips_and_networks=[
-                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.42",
+                                # Subnet #4
+                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23",
                                  ContainerNetwork(
-                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
+                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
                                      subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
-                                                 f"{network_id}.6"
-                                                 f"{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                                                 f"{network_id}.4{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
                                      subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
+                                # Kafka - Mgmt net
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
-                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.42",
+                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.23",
+                                 ContainerNetwork(
+                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
+                                          f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}",
+                                     subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                                                 f"{network_id}."
+                                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}"
+                                                 f"{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                                     subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                                     interface=constants.NETWORKING.ETH2,
+                                     bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+                                 ))
+                            ],
+                            version=version, level=str(level),
+                            restart_policy=constants.DOCKER.ON_FAILURE_3,
+                            suffix="_1"),
+        # Container 15 - Intel NUC
+        NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.TELNET_1}",
+                            os=constants.CONTAINER_OS.TELNET_1_OS,
+                            ips_and_networks=[
+                                # Subnet #8
+                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57",
+                                 ContainerNetwork(
+                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_8",
+                                     subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                                                 f"{network_id}.8{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                                     subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                                     interface=constants.NETWORKING.ETH0,
+                                     bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+                                 )),
+                                # Kafka - Mgmt net
+                                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+                                 f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.57",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
                                           f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}",
@@ -639,6 +678,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1")
     ]
+    # Mods in progress
     containers_cfg = ContainersConfig(
         containers=containers,
         agent_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
@@ -2361,6 +2401,179 @@ def default_traffic_config(network_id: int, time_step_len_seconds: int = 15) -> 
     traffic_conf = TrafficConfig(node_traffic_configs=traffic_generators,
                                  client_population_config=client_population_config)
     return traffic_conf
+
+# Mods completed
+def default_services_config(network_id: int) -> ServicesConfig:
+    """
+    Generates default services config
+
+    :param network_id: the network id
+    :return: The services configuration
+    """
+    services_configs = [
+        # Container 2 - Client
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+               f"{collector_constants.EXTERNAL_NETWORK.NETWORK_ID_THIRD_OCTET}.254",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 1 - Attacker
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+               f"{collector_constants.EXTERNAL_NETWORK.NETWORK_ID_THIRD_OCTET}.191",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 3 - Router
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 4 - Switch 1
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.78",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 5 - Switch 2 
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.3",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 6 - Switch 3
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.5.31",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 7 - Switch 4
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.88",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 8 - Workstation 1
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPENPLC.DEFAULT_PORT,
+                               name=constants.OPENPLC.SERVICE_NAME, credentials=[]),                               
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.MODBUS.DEFAULT_PORT,
+                               name=constants.MODBUS.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 9 - Workstation 2
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPENPLC.DEFAULT_PORT,
+                               name=constants.OPENPLC.SERVICE_NAME, credentials=[]),                               
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPCUA.DEFAULT_PORT,
+                               name=constants.OPCUA.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 10 - Workstation 3
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.108",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPENPLC.DEFAULT_PORT,
+                               name=constants.OPENPLC.SERVICE_NAME, credentials=[]),                               
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPCUA.DEFAULT_PORT,
+                               name=constants.OPCUA.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.MODBUS.DEFAULT_PORT,
+                               name=constants.MODBUS.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 11 - MPRC (Multi-Process Robotic Cell)
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.15",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.OPENPLC.DEFAULT_PORT,
+                               name=constants.OPENPLC.SERVICE_NAME, credentials=[]),                               
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.S7_COMM.DEFAULT_PORT,
+                               name=constants.S7_COMM.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 12 - Server 1
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.CVE_2015_1427.PORT,
+                               name=constants.CVE_2015_1427.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SNMP.DEFAULT_PORT,
+                               name=constants.SNMP.SERVICE_NAME, credentials=[])
+            ]
+        ),        
+        # Container 13 - Server 2
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.DVWA_SQL_INJECTION.PORT,
+                               name=constants.DVWA_SQL_INJECTION.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.IRC.DEFAULT_PORT,
+                               name=constants.IRC.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 14 - Server 3
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SAMBA.PORT,
+                               name=constants.SAMBA.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.NTP.DEFAULT_PORT,
+                               name=constants.NTP.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.TELNET.DEFAULT_PORT,
+                               name=constants.TELNET.SERVICE_NAME, credentials=[])
+            ]
+        ),
+        # Container 15 - Intel NUC
+        NodeServicesConfig(
+            ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57",
+            services=[
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.SSH.DEFAULT_PORT,
+                               name=constants.SSH.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.TELNET.DEFAULT_PORT,
+                               name=constants.TELNET.SERVICE_NAME, credentials=[]),
+                NetworkService(protocol=TransportProtocol.TCP, port=constants.HTTP.DEFAULT_PORT,
+                               name=constants.HTTP.SERVICE_NAME, credentials=[])
+            ]
+        )
+    ]
+    service_cfg = ServicesConfig(
+        services_configs=services_configs
+    )
+    return service_cfg
 
 # Mods completed
 def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
