@@ -67,8 +67,9 @@ RUN git clone https://github.com/thiagoralves/OpenPLC_v3.git /opt/OpenPLC_v3 && 
 #  4840 = OPC UA default
 #  8080 - Web-based IDE
 #  20000 - Internal OpenPLC Communication
+#  102 - Siemens S7 Comm (Snap7)
 # Expose OpenPLC ports
-# EXPOSE 22 502 8080 4840 20000
+# EXPOSE 22 502 8080 4840 20000 102
 
 # Include Tini as a simple init system to manage processes and reap zombies in container.
 ENV TINI_VERSION v0.19.0
