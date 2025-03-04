@@ -74,20 +74,5 @@ The PLC firmware implements the security handshake behind the scenes.
 - Real PLCs rely on industrial **NTP servers** to keep accurate timestamps for event logs and alarms.
 - Including NTP ensures that logged attacks and events **align correctly in time**.
 
-## Comparisons to Excluded Components from the Original CSLE Base Debian 10 Dockerfile
-The original CSLE framework contained services that **are not relevant to a PLC**. These were removed for realism:
-- **Web Servers (Apache, Tomcat, GlassFish)** → Not used in PLC firmware.
-- **Database Servers (PostgreSQL, SQLite)** → SCADA, not PLC, stores historical data.
-- **TeamSpeak, IRC, Mail Servers (Postfix, Sendmail, InspIRCd)** → Unrelated to ICS.
-- **Exploit Scripts for IT (Heartbleed, SQL Injection, Telnet, Samba, etc.)** → Not applicable to ICS.
-- **User Management Scripts** → PLCs don’t have multiple interactive users like an IT server.
-
-## Usage
-### Running the Container
-```sh
-docker build -t plc-emulator .
-docker run -it --rm --network host plc-emulator
-```
-
 ## Conclusion
 This Docker container provides a realistic **PLC emulation** with key ICS functionalities. While it does not fully replicate vendor-specific hardware, it enables security research, **RL-based attack/defense training**, and **ICS cybersecurity testing** in a controlled lab setting. Future enhancements will improve the realism and expand attack/defense capabilities for RL simulations.
