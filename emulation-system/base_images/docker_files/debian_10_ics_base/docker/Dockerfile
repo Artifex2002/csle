@@ -26,9 +26,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mv /etc/sudoers /etc/sudoers.bak
 ADD docker_files/common/sudoers /etc/sudoers
 
+# Install required Python packages first
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-setuptools \
+    python3-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Install ICS-relevant Python libraries, plus csle-collector for data logging.
-RUN pip3 install \
-    python-opcua \     
+RUN pip3 install --upgrade pip && pip3 install \
+    opcua \     
     pymodbus \     
     python-snap7 \   
     csle-collector
