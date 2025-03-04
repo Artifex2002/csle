@@ -26,18 +26,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mv /etc/sudoers /etc/sudoers.bak
 ADD docker_files/common/sudoers /etc/sudoers
 
-# Install required Python packages first
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-setuptools \
-    python3-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Install ICS-relevant Python libraries, plus csle-collector for data logging.
-RUN pip3 install --upgrade pip && pip3 install \
-    opcua \     
-    pymodbus \     
-    python-snap7 \   
+RUN pip3 install --upgrade pip && \
+    pip3 install \
+    asyncua \
+    pymodbus \
+    python-snap7 \
+    "python-snap7[cli]" \
     csle-collector
+
+# Add the OPC UA and MODBUS server scripts to the home directory inside the container
+ADD docker_files/common/opcua_server.py /home/opcua_server.py
+ADD docker_files/common/modbus_server.py /home/modbus_server.py
 
 # Beats
 RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.3.3-amd64.deb &&\
@@ -67,14 +67,13 @@ RUN git clone https://github.com/thiagoralves/OpenPLC_v3.git /opt/OpenPLC_v3 && 
 
 # Set OpenPLC Runtime to start automatically
 
-# Expose ICS-related ports:
+# Expose ICS and OpenPLC-related ports:
 #  22  = SSH (analogy for engineering port)
 #  502 = Modbus default
 #  4840 = OPC UA default
 #  8080 - Web-based IDE
 #  20000 - Internal OpenPLC Communication
 #  102 - Siemens S7 Comm (Snap7)
-# Expose OpenPLC ports
 # EXPOSE 22 502 8080 4840 20000 102
 
 # Include Tini as a simple init system to manage processes and reap zombies in container.
@@ -83,7 +82,7 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]
 
-# (Optional) Copy in scripts for ICS exploits or protocol fuzzing to simulate attacks on the device.
+# Copy in scripts for ICS exploits or protocol fuzzing to simulate attacks on the device.
 # ADD modbus_exploit.py /modbus_exploit.py
 # RUN chmod +x /modbus_exploit.py
 
