@@ -193,7 +193,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.ROUTER_2}",
                             os=constants.CONTAINER_OS.ROUTER_2_OS,
                             ips_and_networks=[
-                                # Subnet #2
+                                # Subnet 2
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_2",
@@ -203,7 +203,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #1
+                                # Subnet 1
                                 (
                                     f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                                     f"{collector_constants.EXTERNAL_NETWORK.NETWORK_ID_THIRD_OCTET}.10",
@@ -237,7 +237,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OVS_1}",
                             os=constants.CONTAINER_OS.OVS_1_OS,
                             ips_and_networks=[
-                                # Subnet #2
+                                # Subnet 2
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.78",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_2",
@@ -247,7 +247,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #3
+                                # Subnet 3
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.78",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_3",
@@ -257,7 +257,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH2,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #5
+                                # Subnet 5
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.5.78",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_5",
@@ -267,7 +267,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH3,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #7
+                                # Subnet 7
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.78",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_7",
@@ -295,11 +295,11 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1"),
-        # Container 5 - Switch #2
+        # Container 5 - Switch 2
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OVS_1}",
                             os=constants.CONTAINER_OS.OVS_1_OS,
                             ips_and_networks=[
-                                # Subnet #3
+                                # Subnet 3
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.3",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_3",
@@ -309,7 +309,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #4
+                                # Subnet 4
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.3",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
@@ -337,11 +337,11 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_2"),
-        # Container 6 - Switch #3
+        # Container 6 - Switch 3
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OVS_1}",
                             os=constants.CONTAINER_OS.OVS_1_OS,
                             ips_and_networks=[
-                                # Subnet #5
+                                # Subnet 5
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.5.31",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_5",
@@ -351,7 +351,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #6
+                                # Subnet 6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.31",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
@@ -379,11 +379,11 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             version=version, level=str(level),
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_3"),
-        # Container 7 - Switch #4
+        # Container 7 - Switch 4
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OVS_1}",
                             os=constants.CONTAINER_OS.OVS_1_OS,
                             ips_and_networks=[
-                                # Subnet #7
+                                # Subnet 7
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.88",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_7",
@@ -393,7 +393,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                      interface=constants.NETWORKING.ETH0,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
                                  )),
-                                # Subnet #8
+                                # Subnet 8
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.88",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_8",
@@ -425,7 +425,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.MODBUS_1}",
                             os=constants.CONTAINER_OS.MODBUS_1_OS,
                             ips_and_networks=[
-                                # Subnet #6
+                                # Subnet 6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
@@ -457,7 +457,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.OPCUA_1}",
                             os=constants.CONTAINER_OS.OPCUA_1_OS,
                             ips_and_networks=[
-                                # Subnet #6
+                                # Subnet 6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
@@ -489,7 +489,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.MODBUS_OPCUA_1}",
                             os=constants.CONTAINER_OS.MODBUS_OPCUA_1_OS,
                             ips_and_networks=[
-                                # Subnet #6
+                                # Subnet 6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.108",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
@@ -521,7 +521,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.S7_COMM_1}",
                             os=constants.CONTAINER_OS.S7_COMM_1_OS,
                             ips_and_networks=[
-                                # Subnet #6
+                                # Subnet 6
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.15",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
@@ -553,7 +553,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.CVE_2015_1427_1}",
                             os=constants.CONTAINER_OS.CVE_2015_1427_1_OS,
                             ips_and_networks=[
-                                # Subnet #4
+                                # Subnet 4
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
@@ -585,7 +585,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.SQL_INJECTION_1}",
                             os=constants.CONTAINER_OS.SQL_INJECTION_1_OS,
                             ips_and_networks=[
-                                # Subnet #4
+                                # Subnet 4
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
@@ -617,7 +617,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.SAMBA_2}",
                             os=constants.CONTAINER_OS.SAMBA_2_OS,
                             ips_and_networks=[
-                                # Subnet #4
+                                # Subnet 4
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
@@ -649,7 +649,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
         NodeContainerConfig(name=f"{constants.CONTAINER_IMAGES.TELNET_1}",
                             os=constants.CONTAINER_OS.TELNET_1_OS,
                             ips_and_networks=[
-                                # Subnet #8
+                                # Subnet 8
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57",
                                  ContainerNetwork(
                                      name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_8",
@@ -678,29 +678,38 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                             restart_policy=constants.DOCKER.ON_FAILURE_3,
                             suffix="_1")
     ]
-    # Mods in progress
     containers_cfg = ContainersConfig(
         containers=containers,
         agent_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                  f"{collector_constants.EXTERNAL_NETWORK.NETWORK_ID_THIRD_OCTET}.191",
         router_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10",
         ids_enabled=False, vulnerable_nodes=[
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.5",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.8",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.41",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.42"
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99", # Container 12 - Server 1
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65", # Container 13 - Server 2
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23", # Container 14 - Server 3
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25", # Container 8 - Workstation 1
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92", # Container 9 - Workstation 2
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.108", # Container 10 - Workstation 3
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.15", # Container 11 - MPRC (Multi-Process Robotic Cell)
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57" # Container 15 - Intel NUC
         ],
         agent_reachable_nodes=[
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.78",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.3",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.5",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.8",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.5.31",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.41",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.42"
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10", # Container 3 - Router
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.78", # Container 4 - Switch 1
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.3", # Container 5 - Switch 2
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.5.31", # Container 6 - Switch 3
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.88", # Container 7 - Switch 4
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25", # Container 8 - Workstation 1
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92", # Container 9 - Workstation 2
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.108", # Container 10 - Workstation 3
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.15", # Container 11 - MPRC (Multi-Process Robotic Cell)
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99", # Container 12 - Server 1
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65", # Container 13 - Server 2
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23", # Container 14 - Server 3
+            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57" # Container 15 - Intel NUC
         ],
         networks=[
+            # Subnet 1
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_1",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -708,6 +717,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 2
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_2",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -715,6 +725,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 3
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_3",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -722,6 +733,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 4
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -729,6 +741,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 5
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_5",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -736,6 +749,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 6
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_6",
                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
@@ -743,6 +757,24 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
             ),
+            # Subnet 7
+            ContainerNetwork(
+                name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_7",
+                subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                            f"{network_id}.7{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+            ),
+            # Subnet 8
+            ContainerNetwork(
+                name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_8",
+                subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                            f"{network_id}.8{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+            ),
+            # Mods in Progress
+            # Kafka - Mgmt net
             ContainerNetwork(
                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
                      f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}",
