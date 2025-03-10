@@ -818,7 +818,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
     )
     return containers_cfg
 
-# Mods in Progress
+# Mods completed
 def default_resource_constraints_config(network_id: int, level: int) -> ResourcesConfig:
     """
     Generates default resource constraints config
@@ -828,6 +828,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
     :return: generates the ResourcesConfig
     """
     node_resources_configurations = [
+        # Container 1 - Attacker
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.HACKER_KALI_1}_1-{constants.CSLE.LEVEL}{level}",
@@ -849,6 +850,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      rate_limit_mbit=100, packet_overhead_bytes=0,
                      cell_overhead_bytes=0
                  ))]),
+        # Container 2 - Client
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.CLIENT_1}_1-{constants.CSLE.LEVEL}{level}",
@@ -870,6 +872,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      rate_limit_mbit=10000, packet_overhead_bytes=0,
                      cell_overhead_bytes=0
                  ))]),
+        # Container 3 - Router
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.ROUTER_2}_1-{constants.CSLE.LEVEL}{level}",
@@ -907,6 +910,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                         rate_limit_mbit=100, packet_overhead_bytes=0,
                         cell_overhead_bytes=0
                     ))]),
+        # Container 4 - Switch 1
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.OVS_1}_1-{constants.CSLE.LEVEL}{level}",
@@ -956,9 +960,24 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
                      rate_limit_mbit=1000, packet_overhead_bytes=0,
                      cell_overhead_bytes=0
-                 ))
+                 )),
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.78",
+                 NodeNetworkConfig(
+                     interface=constants.NETWORKING.ETH4,
+                     limit_packets_queue=30000, packet_delay_ms=0.1,
+                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
+                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
+                     packet_loss_type=PacketLossType.GEMODEL,
+                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
+                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
+                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
+                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
+                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
+                     rate_limit_mbit=1000, packet_overhead_bytes=0,
+                     cell_overhead_bytes=0
+                 )),
             ]),
-
+        # Container 5 - Switch 2
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.OVS_1}_2-{constants.CSLE.LEVEL}{level}",
@@ -995,6 +1014,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      cell_overhead_bytes=0
                  ))
             ]),
+        # Container 6 - Switch 3
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.OVS_1}_3-{constants.CSLE.LEVEL}{level}",
@@ -1031,12 +1051,13 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      cell_overhead_bytes=0
                  ))
             ]),
+        # Container 7 - Switch 4
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.SSH_1}_1-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_4-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
-                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.5",
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.88",
                  NodeNetworkConfig(
                      interface=constants.NETWORKING.ETH0,
                      limit_packets_queue=30000, packet_delay_ms=0.1,
@@ -1050,59 +1071,139 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                      packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
                      rate_limit_mbit=1000, packet_overhead_bytes=0,
                      cell_overhead_bytes=0
+                 )),
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.88",
+                 NodeNetworkConfig(
+                     interface=constants.NETWORKING.ETH2,
+                     limit_packets_queue=30000, packet_delay_ms=0.1,
+                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
+                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
+                     packet_loss_type=PacketLossType.GEMODEL,
+                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
+                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
+                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
+                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
+                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
+                     rate_limit_mbit=1000, packet_overhead_bytes=0,
+                     cell_overhead_bytes=0
                  ))
             ]),
+        # Container 8 - Workstation 1
 
+        # Container 9 - Workstation 2
+        NodeResourcesConfig(
+            container_name=f"{constants.CSLE.NAME}-"
+                           f"{constants.CONTAINER_IMAGES.OPCUA_1}_1-{constants.CSLE.LEVEL}{level}",
+            num_cpus=1, available_memory_gb=4, # Real PLCs have limited memory (~KBs), 4GB is allocated keeping in mind the Docker setup; it doesn’t affect the network service attack realism.
+            ips_and_network_configs=[
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92",
+                    NodeNetworkConfig(
+                        interface=constants.NETWORKING.ETH0,
+                        # Queue size: typical PLC environments might have a moderate packet queue
+                        limit_packets_queue=10000,
+                        # Delays: a small average delay with moderate jitter, using a Normal (Gaussian) distribution
+                        packet_delay_ms=5,                        # Average 5 ms delay
+                        packet_delay_jitter_ms=2,                 # +/- 2 ms jitter
+                        packet_delay_correlation_percentage=30,   # 30% correlation between consecutive packets
+                        packet_delay_distribution=PacketDelayDistributionType.NORMAL,
+                        # Packet loss: use a two-state model that occasionally goes “bad” to simulate transient issues
+                        packet_loss_type=PacketLossType.STATE,
+                        loss_state_p=0.005,   # Probability of going from a “good” to a “bad” state (0.5%)
+                        loss_state_r=0.90,    # Probability of staying in the “bad” state once entered
+                        # Packet corruption: small but non-zero chance of corrupting packets
+                        packet_corrupt_percentage=0.001,                      # 0.1% corruption
+                        packet_corrupt_correlation_percentage=20,             # 20% correlation
+                        # Packet duplication: extremely rare, but possible in erroneous networks
+                        packet_duplicate_percentage=0.0001,                   # 0.01% duplication
+                        packet_duplicate_correlation_percentage=20,           # 20% correlation
+                        # Packet reordering: low probability but can occasionally happen under congestion
+                        packet_reorder_percentage=0.2,                        # 0.2% reorder
+                        packet_reorder_correlation_percentage=10,             # 10% correlation
+                        packet_reorder_gap=3,                                 # Reorder with a gap of ~3 packets
+                        # Rate limiting: restrict bandwidth to a level typical of an industrial link
+                        rate_limit_mbit=10,   # 10 Mbps limit (adjust to your use-case)
+                        # Optional overhead definitions (set to 0 for now)
+                        packet_overhead_bytes=0,
+                        cell_overhead_bytes=0
+                    )),
+            ]),
+        # Container 10 - Workstation 3
+
+        # Container 11 - MPRC (Multi-Process Robotic Cell)
+
+        # Container 12 - Server 1
+        NodeResourcesConfig(
+            container_name=f"{constants.CSLE.NAME}-"
+                           f"{constants.CONTAINER_IMAGES.CVE_2015_1427_1}_1-{constants.CSLE.LEVEL}{level}",
+            num_cpus=1, available_memory_gb=4,
+            ips_and_network_configs=[
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.99",
+                 NodeNetworkConfig(
+                     interface=constants.NETWORKING.ETH0,
+                     limit_packets_queue=30000, packet_delay_ms=0.1,
+                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
+                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
+                     packet_loss_type=PacketLossType.GEMODEL,
+                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
+                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
+                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
+                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
+                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
+                     rate_limit_mbit=1000, packet_overhead_bytes=0,
+                     cell_overhead_bytes=0
+                 )),
+            ]),
+        # Container 13 - Server 2
+        NodeResourcesConfig(
+            container_name=f"{constants.CSLE.NAME}-"
+                           f"{constants.CONTAINER_IMAGES.SQL_INJECTION_1}_1-{constants.CSLE.LEVEL}{level}",
+            num_cpus=1, available_memory_gb=4,
+            ips_and_network_configs=[
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.65",
+                 NodeNetworkConfig(
+                     interface=constants.NETWORKING.ETH0,
+                     limit_packets_queue=30000, packet_delay_ms=0.1,
+                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
+                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
+                     packet_loss_type=PacketLossType.GEMODEL,
+                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
+                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
+                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
+                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
+                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
+                     rate_limit_mbit=1000, packet_overhead_bytes=0,
+                     cell_overhead_bytes=0
+                 )),
+            ]),
+        # Container 14 - Server 3
+        NodeResourcesConfig(
+            container_name=f"{constants.CSLE.NAME}-"
+                           f"{constants.CONTAINER_IMAGES.SAMBA_2}_1-{constants.CSLE.LEVEL}{level}",
+            num_cpus=1, available_memory_gb=4,
+            ips_and_network_configs=[
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23",
+                 NodeNetworkConfig(
+                     interface=constants.NETWORKING.ETH0,
+                     limit_packets_queue=30000, packet_delay_ms=0.1,
+                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
+                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
+                     packet_loss_type=PacketLossType.GEMODEL,
+                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
+                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
+                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
+                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
+                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
+                     rate_limit_mbit=1000, packet_overhead_bytes=0,
+                     cell_overhead_bytes=0
+                 )),
+            ]),
+        # Container 15 - Intel NUC
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.TELNET_1}_1-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
-                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.8",
-                 NodeNetworkConfig(
-                     interface=constants.NETWORKING.ETH0,
-                     limit_packets_queue=30000, packet_delay_ms=0.1,
-                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
-                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
-                     packet_loss_type=PacketLossType.GEMODEL,
-                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
-                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
-                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
-                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
-                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
-                     rate_limit_mbit=1000, packet_overhead_bytes=0,
-                     cell_overhead_bytes=0
-                 ))
-            ]),
-
-        NodeResourcesConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.FTP_1}_1-{constants.CSLE.LEVEL}{level}",
-            num_cpus=1, available_memory_gb=4,
-            ips_and_network_configs=[
-                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.42",
-                 NodeNetworkConfig(
-                     interface=constants.NETWORKING.ETH0,
-                     limit_packets_queue=30000, packet_delay_ms=0.1,
-                     packet_delay_jitter_ms=0.025, packet_delay_correlation_percentage=25,
-                     packet_delay_distribution=PacketDelayDistributionType.PARETO,
-                     packet_loss_type=PacketLossType.GEMODEL,
-                     loss_gemodel_p=0.0001, loss_gemodel_r=0.999,
-                     loss_gemodel_k=0.9999, loss_gemodel_h=0.0001, packet_corrupt_percentage=0.00001,
-                     packet_corrupt_correlation_percentage=25, packet_duplicate_percentage=0.00001,
-                     packet_duplicate_correlation_percentage=25, packet_reorder_percentage=0.0025,
-                     packet_reorder_correlation_percentage=25, packet_reorder_gap=5,
-                     rate_limit_mbit=1000, packet_overhead_bytes=0,
-                     cell_overhead_bytes=0
-                 ))
-            ]),
-
-        NodeResourcesConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.SSH_1}_2-{constants.CSLE.LEVEL}{level}",
-            num_cpus=1, available_memory_gb=4,
-            ips_and_network_configs=[
-                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.41",
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57",
                  NodeNetworkConfig(
                      interface=constants.NETWORKING.ETH0,
                      limit_packets_queue=30000, packet_delay_ms=0.1,
