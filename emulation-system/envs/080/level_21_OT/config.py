@@ -3722,6 +3722,86 @@ def default_docker_stats_manager_config(network_id: int, level: int, version: st
         docker_stats_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS)
     return config
 
+# Mods completed
+def default_elk_config(network_id: int, level: int, version: str, time_step_len_seconds: int) -> ElkConfig:
+    """
+    Generates the default ELK configuration
+
+    :param network_id: the id of the emulation network
+    :param level: the level of the emulation
+    :param version: the version of the emulation
+    :param time_step_len_seconds: default length of a time-step in the emulation
+    :return: the ELK configuration
+    """
+    container = NodeContainerConfig(
+        name=f"{constants.CONTAINER_IMAGES.ELK_1}",
+        os=constants.CONTAINER_OS.ELK_1_OS,
+        ips_and_networks=[
+            (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+             f"{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}."
+             f"{collector_constants.ELK_CONFIG.NETWORK_ID_FOURTH_OCTET}",
+             ContainerNetwork(
+                 name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
+                      f"{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}",
+                 subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                             f"{network_id}.{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}"
+                             f"{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                 subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                 bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+             )),
+        ],
+        version=version, level=str(level),
+        restart_policy=constants.DOCKER.ON_FAILURE_3, suffix=collector_constants.ELK_CONFIG.SUFFIX)
+
+    resources = NodeResourcesConfig(
+        container_name=f"{constants.CSLE.NAME}-"
+                       f"{constants.CONTAINER_IMAGES.ELK_1}_1-{constants.CSLE.LEVEL}{level}",
+        num_cpus=2, available_memory_gb=16,
+        ips_and_network_configs=[
+            (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+             f"{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}."
+             f"{collector_constants.ELK_CONFIG.NETWORK_ID_FOURTH_OCTET}",
+             None)])
+
+    firewall_config = NodeFirewallConfig(
+        hostname=f"{constants.CONTAINER_IMAGES.ELK_1}_1",
+        ips_gw_default_policy_networks=[
+            DefaultNetworkFirewallConfig(
+                ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
+                   f"{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}."
+                   f"{collector_constants.ELK_CONFIG.NETWORK_ID_FOURTH_OCTET}",
+                default_gw=None,
+                default_input=constants.FIREWALL.ACCEPT,
+                default_output=constants.FIREWALL.ACCEPT,
+                default_forward=constants.FIREWALL.ACCEPT,
+                network=ContainerNetwork(
+                    name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_"
+                         f"{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}",
+                    subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
+                                f"{network_id}.{collector_constants.ELK_CONFIG.NETWORK_ID_THIRD_OCTET}"
+                                f"{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                    subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
+                    bitmask=constants.CSLE.CSLE_EDGE_BITMASK
+                )
+            )
+        ],
+        output_accept=set([]),
+        input_accept=set([]),
+        forward_accept=set([]),
+        output_drop=set(), input_drop=set(), forward_drop=set(), routes=set())
+
+    config = ElkConfig(version=version, time_step_len_seconds=time_step_len_seconds,
+                       elastic_port=collector_constants.ELK.ELASTIC_PORT,
+                       kibana_port=collector_constants.ELK.KIBANA_PORT,
+                       logstash_port=collector_constants.ELK.LOGSTASH_PORT,
+                       elk_manager_port=collector_constants.MANAGER_PORTS.ELK_MANAGER_DEFAULT_PORT,
+                       container=container,
+                       resources=resources, firewall_config=firewall_config,
+                       elk_manager_log_file=collector_constants.LOG_FILES.ELK_MANAGER_LOG_FILE,
+                       elk_manager_log_dir=collector_constants.LOG_FILES.ELK_MANAGER_LOG_DIR,
+                       elk_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS)
+    return config
+
 # Mods in Progress
 def default_beats_config(network_id: int) -> BeatsConfig:
     """
