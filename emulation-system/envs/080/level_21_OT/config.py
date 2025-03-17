@@ -1089,12 +1089,46 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                  ))
             ]),
         # Container 8 - Workstation 1
-
+        NodeResourcesConfig(
+            container_name=f"{constants.CSLE.NAME}-"
+                           f"{constants.CONTAINER_IMAGES.MODBUS_1}_1-{constants.CSLE.LEVEL}{level}",
+            num_cpus=1, available_memory_gb=4,  # Real PLCs have limited memory (~KBs), 4GB is allocated keeping in mind the Docker setup; it doesn’t affect the network service attack realism.
+            ips_and_network_configs=[
+                (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.25",
+                    NodeNetworkConfig(
+                        interface=constants.NETWORKING.ETH0,
+                        limit_packets_queue=5000,
+                        # Slightly lower base delay, small jitter 
+                        packet_delay_ms=2,                       
+                        packet_delay_jitter_ms=1,                
+                        packet_delay_correlation_percentage=20,  
+                        packet_delay_distribution=PacketDelayDistributionType.UNIFORM,
+                        # Occasional random loss, not too bursty
+                        packet_loss_type=PacketLossType.RANDOM,
+                        loss_state_p=0.005,   # Probability of going from a “good” to a “bad” state (0.5%)
+                        loss_state_r=0.90,    # Probability of staying in the “bad” state once entered
+                        loss_state_k=0.995,   # 99.5% chance of staying in good state
+                        loss_state_h=0.10,    # 10% chance of transitioning back from bad → good state
+                        # Packet corruption: small but non-zero chance of corrupting packets
+                        packet_corrupt_percentage=0.0005,                       # 0.05% corruption
+                        packet_corrupt_correlation_percentage=10,               
+                        packet_duplicate_percentage=0.0001,                     
+                        packet_duplicate_correlation_percentage=10,             
+                        packet_reorder_percentage=0.05,                         # Rare reorder
+                        packet_reorder_correlation_percentage=5,               
+                        packet_reorder_gap=3,                                   
+                        # Rate-limiting might be moderate for simple Modbus
+                        rate_limit_mbit=5,  
+                        # Optional overhead definitions (set to 0 for now)
+                        packet_overhead_bytes=0,
+                        cell_overhead_bytes=0
+                    )),
+            ]),
         # Container 9 - Workstation 2
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
                            f"{constants.CONTAINER_IMAGES.OPCUA_1}_1-{constants.CSLE.LEVEL}{level}",
-            num_cpus=1, available_memory_gb=4, # Real PLCs have limited memory (~KBs), 4GB is allocated keeping in mind the Docker setup; it doesn’t affect the network service attack realism.
+            num_cpus=1, available_memory_gb=4,  # Real PLCs have limited memory (~KBs), 4GB is allocated keeping in mind the Docker setup; it doesn’t affect the network service attack realism.
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.92",
                     NodeNetworkConfig(
@@ -1102,26 +1136,28 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
                         # Queue size: typical PLC environments might have a moderate packet queue
                         limit_packets_queue=10000,
                         # Delays: a small average delay with moderate jitter, using a Normal (Gaussian) distribution
-                        packet_delay_ms=5,                        # Average 5 ms delay
-                        packet_delay_jitter_ms=2,                 # +/- 2 ms jitter
-                        packet_delay_correlation_percentage=30,   # 30% correlation between consecutive packets
+                        packet_delay_ms=5,                       # Average 5 ms delay
+                        packet_delay_jitter_ms=2,                # +/- 2 ms jitter
+                        packet_delay_correlation_percentage=30,  # 30% correlation between consecutive packets
                         packet_delay_distribution=PacketDelayDistributionType.NORMAL,
                         # Packet loss: use a two-state model that occasionally goes “bad” to simulate transient issues
                         packet_loss_type=PacketLossType.STATE,
                         loss_state_p=0.005,   # Probability of going from a “good” to a “bad” state (0.5%)
                         loss_state_r=0.90,    # Probability of staying in the “bad” state once entered
+                        loss_state_k=0.995,   # 99.5% chance of staying in good state
+                        loss_state_h=0.10,    # 10% chance of transitioning back from bad → good state
                         # Packet corruption: small but non-zero chance of corrupting packets
-                        packet_corrupt_percentage=0.001,                      # 0.1% corruption
-                        packet_corrupt_correlation_percentage=20,             # 20% correlation
+                        packet_corrupt_percentage=0.001,                        # 0.1% corruption
+                        packet_corrupt_correlation_percentage=20,               # 20% correlation
                         # Packet duplication: extremely rare, but possible in erroneous networks
-                        packet_duplicate_percentage=0.0001,                   # 0.01% duplication
-                        packet_duplicate_correlation_percentage=20,           # 20% correlation
+                        packet_duplicate_percentage=0.0001,                     # 0.01% duplication
+                        packet_duplicate_correlation_percentage=20,             # 20% correlation
                         # Packet reordering: low probability but can occasionally happen under congestion
-                        packet_reorder_percentage=0.2,                        # 0.2% reorder
-                        packet_reorder_correlation_percentage=10,             # 10% correlation
-                        packet_reorder_gap=3,                                 # Reorder with a gap of ~3 packets
+                        packet_reorder_percentage=0.2,                          # 0.2% reorder
+                        packet_reorder_correlation_percentage=10,               # 10% correlation
+                        packet_reorder_gap=3,                                   # Reorder with a gap of ~3 packets
                         # Rate limiting: restrict bandwidth to a level typical of an industrial link
-                        rate_limit_mbit=10,   # 10 Mbps limit (adjust to your use-case)
+                        rate_limit_mbit=10,  # 10 Mbps limit (adjust to your use-case)
                         # Optional overhead definitions (set to 0 for now)
                         packet_overhead_bytes=0,
                         cell_overhead_bytes=0
