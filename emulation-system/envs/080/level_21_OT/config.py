@@ -818,7 +818,7 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
     )
     return containers_cfg
 
-# Mods in Progress
+# Mods completed
 def default_flags_config(network_id: int) -> FlagsConfig:
     """
     Generates default flags config
@@ -827,7 +827,8 @@ def default_flags_config(network_id: int) -> FlagsConfig:
     :return: The flags confguration
     """
     flags = [
-        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.5",
+        # Container 14 - Server 3
+        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.23",
                         flags=[Flag(
                             name=f"{constants.COMMON.FLAG_FILENAME_PREFIX}1",
                             path=f"/{constants.COMMANDS.TMP_DIR}/{constants.COMMON.FLAG_FILENAME_PREFIX}1"
@@ -835,29 +836,14 @@ def default_flags_config(network_id: int) -> FlagsConfig:
                             dir=f"/{constants.COMMANDS.TMP_DIR}/",
                             id=1, requires_root=True, score=1
                         )]),
-        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.8",
+        # Container 15 - Intel NUC
+        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.57",
                         flags=[Flag(
                             name=f"{constants.COMMON.FLAG_FILENAME_PREFIX}2",
                             path=f"/{constants.COMMANDS.TMP_DIR}/{constants.COMMON.FLAG_FILENAME_PREFIX}2"
                                  f"{constants.FILE_PATTERNS.TXT_FILE_SUFFIX}",
                             dir=f"/{constants.COMMANDS.TMP_DIR}/",
                             id=2, requires_root=True, score=1
-                        )]),
-        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.41",
-                        flags=[Flag(
-                            name=f"{constants.COMMON.FLAG_FILENAME_PREFIX}3",
-                            path=f"/{constants.COMMANDS.TMP_DIR}/{constants.COMMON.FLAG_FILENAME_PREFIX}3"
-                                 f"{constants.FILE_PATTERNS.TXT_FILE_SUFFIX}",
-                            dir=f"/{constants.COMMANDS.TMP_DIR}/",
-                            id=3, requires_root=True, score=1
-                        )]),
-        NodeFlagsConfig(ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.6.42",
-                        flags=[Flag(
-                            name=f"{constants.COMMON.FLAG_FILENAME_PREFIX}4",
-                            path=f"/{constants.COMMANDS.TMP_DIR}/{constants.COMMON.FLAG_FILENAME_PREFIX}4"
-                                 f"{constants.FILE_PATTERNS.TXT_FILE_SUFFIX}",
-                            dir=f"/{constants.COMMANDS.TMP_DIR}/",
-                            id=4, requires_root=True, score=1
                         )])
     ]
     flags_config = FlagsConfig(node_flag_configs=flags)
