@@ -1,4 +1,4 @@
-# CSLE Industrial Lab — engineering showcase
+# CSLE (Cybersecurity Learning Environment) — engineering showcase
 
 Public site: https://artifex2002.github.io/csle/
 
